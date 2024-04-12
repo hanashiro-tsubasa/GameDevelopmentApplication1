@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{00f4435a-5674-4df0-9a37-faa0cd6b93e5}</ProjectGuid>
-    <RootNamespace>sample</RootNamespace>
+    <ProjectGuid>{eb7f92b9-1cd6-416b-9f9a-5bfeb37b5700}</ProjectGuid>
+    <RootNamespace>GP24TsubasaHanashiro</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -135,19 +135,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AppMain.cpp" />
-    <ClCompile Include="Objects\GameObject.cpp" />
-    <ClCompile Include="Utility\InputControl.cpp" />
-    <ClCompile Include="Objects\Player\Player.cpp" />
-    <ClCompile Include="Scene\Scene.cpp" />
-    <ClCompile Include="Utility\Vector2D.cpp" />
+    <ClInclude Include="Utility\InputControl.h" />
+    <ClInclude Include="Objects\Player.h" />
+    <ClInclude Include="Utility\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Objects\GameObject.h" />
-    <ClInclude Include="Utility\InputControl.h" />
-    <ClInclude Include="Objects\Player\Player.h" />
-    <ClInclude Include="Scene\Scene.h" />
-    <ClInclude Include="Utility\Vector2D.h" />
+    <ClCompile Include="AppMain.cpp" />
+    <ClCompile Include="Utility\InputControl.cpp" />
+    <ClCompile Include="Objects\Player.cpp" />
+    <ClCompile Include="Utility\Vector2D.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
