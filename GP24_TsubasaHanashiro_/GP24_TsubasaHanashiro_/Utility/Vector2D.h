@@ -15,10 +15,10 @@ public:
 public:
 	Vector2D& operator=(const Vector2D& location);
 
-	const Vector2D operator + (const Vector2D location) const;
+	const Vector2D operator + (const Vector2D& location) const;
 	Vector2D& operator +=(const Vector2D& location);
 
-	const Vector2D operator - (const Vector2D location) const;
+	const Vector2D operator - (const Vector2D& location) const;
 	Vector2D& operator -=(const Vector2D& location);
 
 	const Vector2D operator * (const float& scalar) const;
