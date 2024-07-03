@@ -24,7 +24,7 @@ private:
 
 	//オブジェクト生成処理
 	template<class T>
-	T* CreateObject(const Vector2D& location)
+	T* CreateObject(const Vector2D& location,const Vector2D& vector)
 	{
 		//指定したクラスをのオブジェクトを生成する
 		T* new_instance = new T();
@@ -43,6 +43,8 @@ private:
 
 		//位置情報の設定
 		new_object->SetLocation(location);
+
+		new_object->SetBulletVector(vector);
 
 		//シーン内に存在するオブジェクトリストに追加
 		objects.push_back(new_object);
