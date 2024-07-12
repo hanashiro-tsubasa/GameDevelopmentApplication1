@@ -256,7 +256,7 @@ void Player::Movement(float delta_second)
 	ePanelID panel = StageData::GetPanelData(location);
 
 	// 入力から移動方向を設定
-	if(input->GetKeyDown(KEY_INPUT_UP) || input->GetButtonDown(XINPUT_BUTTON_DPAD_UP))
+	if(input->GetKeyDown(KEY_INPUT_UP) || input->GetButtonDown(XINPUT_BUTTON_DPAD_UP)|| input->GetKeyDown(KEY_INPUT_W))
 	{
 		switch(now_direction_state)
 		{
@@ -271,7 +271,7 @@ void Player::Movement(float delta_second)
 				next_direction_state = eDirectionState::UP;
 		}	
 	}
-	else if(input->GetKeyDown(KEY_INPUT_DOWN) || input->GetButtonDown(XINPUT_BUTTON_DPAD_DOWN))
+	else if(input->GetKeyDown(KEY_INPUT_DOWN) || input->GetButtonDown(XINPUT_BUTTON_DPAD_DOWN) || input->GetKeyDown(KEY_INPUT_S))
 	{
 		switch(now_direction_state)
 		{
@@ -286,7 +286,7 @@ void Player::Movement(float delta_second)
 				next_direction_state = eDirectionState::DOWN;
 		}
 	}
-	else if(input->GetKeyDown(KEY_INPUT_LEFT) || input->GetButtonDown(XINPUT_BUTTON_DPAD_LEFT))
+	else if(input->GetKeyDown(KEY_INPUT_LEFT) || input->GetButtonDown(XINPUT_BUTTON_DPAD_LEFT) || input->GetKeyDown(KEY_INPUT_A))
 	{
 		switch(now_direction_state)
 		{
@@ -301,7 +301,7 @@ void Player::Movement(float delta_second)
 				next_direction_state = eDirectionState::LEFT;
 		}
 	}
-	else if(input->GetKeyDown(KEY_INPUT_RIGHT) || input->GetButtonDown(XINPUT_BUTTON_DPAD_RIGHT))
+	else if(input->GetKeyDown(KEY_INPUT_RIGHT) || input->GetButtonDown(XINPUT_BUTTON_DPAD_RIGHT) || input->GetKeyDown(KEY_INPUT_D))
 	{
 		switch(now_direction_state)
 		{
