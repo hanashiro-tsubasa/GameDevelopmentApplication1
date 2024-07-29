@@ -1,5 +1,7 @@
+#include "EnemyBase.h"
+
 #pragma once
-class PinkEnemy
-{
+class PinkEnemy : public EnemyBase
+{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 };
 

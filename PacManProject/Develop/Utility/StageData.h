@@ -45,7 +45,7 @@ private:
 public:
 	/// <summary>
 	/// 全てのパネル情報を取得する
-	/// </summary>
+	/// </summary>   //データでエラー吐かれてるから全部ブレイクポイント付けようとしてるとこ
 	/// <returns>全てのパネル情報</returns>
 	static const std::vector<std::vector<ePanelID>> GetAll();
 

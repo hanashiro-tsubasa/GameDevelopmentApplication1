@@ -46,7 +46,7 @@ void Player::Initialize()
 	collision.radius = (D_OBJECT_SIZE - 1.0f) / 2.0f;
 
 	// レイヤーの設定
-	z_layer = 5;
+	z_layer = 5;  
 
 	// 可動性の設定
 	mobility = eMobilityType::Movable;
