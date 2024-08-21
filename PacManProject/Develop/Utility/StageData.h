@@ -1,4 +1,6 @@
-﻿#include <vector>
+﻿#pragma once
+
+#include <vector>
 #include <map>
 
 #include "Vector2D.h"
@@ -45,7 +47,7 @@ private:
 public:
 	/// <summary>
 	/// 全てのパネル情報を取得する
-	/// </summary>   //データでエラー吐かれてるから全部ブレイクポイント付けようとしてるとこ
+	/// </summary>   
 	/// <returns>全てのパネル情報</returns>
 	static const std::vector<std::vector<ePanelID>> GetAll();
 

@@ -13,6 +13,7 @@ EnemyBase::EnemyBase() :
 	direction_state(eEnemyDirectionState::UP),
 	animation_time(0.0f),
 	animation_count(0),
+	m_animation_count(0),
 	is_destroy(false)
 {
 
@@ -25,8 +26,8 @@ void EnemyBase::Initialize()
 {
 	//アニメーション画像の読み込み
 	ResourceManager* rm = ResourceManager::GetInstance();
-	move_animation = rm-> GetImages("Resource/Images/monster.png");
-	eyes_animation = rm-> GetImages("Resource/Images/eyes.png");
+	move_animation = rm-> GetImages("Resource/Images/monster.png",20,20,1,32,32);
+	eyes_animation = rm-> GetImages("Resource/Images/eyes.png",4,4,1,32,32);
 
 	//当たり判定の設定
 	collision.is_blocking = true;
@@ -53,6 +54,7 @@ void EnemyBase::Update(float delta_second)
 			{
 				animation_time = 0.0f;
 				animation_count++;
+				m_animation_count++;
 				
 				if (animation_count >= eyes_animation.size())
 				{
@@ -60,8 +62,15 @@ void EnemyBase::Update(float delta_second)
 					animation_count = 0;
 					is_destroy = true;
 				}
+				if (m_animation_count >= move_animation.size())
+				{
+					m_animation_count = 0;
+				}
+
 			}
 			image = eyes_animation[animation_count];
+			image2 = move_animation[m_animation_count];
+			
 			break;
 		default:
 			break;
@@ -71,7 +80,10 @@ void EnemyBase::Update(float delta_second)
 
 void EnemyBase::Draw(const Vector2D& screen_offset)const
 {
-	// 親クラスの描画処理を呼び出す
+	//Draw(screen_offset);
+	
+	Vector2D graph_location = this->location + screen_offset;
+	DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, image2, TRUE);
 	__super::Draw(screen_offset);
 }
 
@@ -160,23 +172,23 @@ void EnemyBase::Movement(float delta_second)
 void EnemyBase::AnimationControl(float delta_second)
 {
 	// 移動中のアニメーション
-	animation_time += delta_second;
+	/*animation_time += delta_second;
 	if (animation_time >= (1.0f / 16.0f))
 	{
 		animation_time = 0.0f;
 		animation_count++;
-		if (animation_count >= 4)
+		if (animation_count >= 2)
 		{
 			animation_count = 0;
 		}
 		// 画像の設定
 		int dir_num = (int)direction_state;
-		if (0 <= dir_num && dir_num < 4)
+		if (0 <= dir_num && dir_num < 2)
 		{
-			image = move_animation[(dir_num * 3) + animation_num[animation_count]];
+			image = move_animation[(dir_num * 1) + animation_num[animation_count]];
 		}
-
-	}
+          
+	}*/
 }
 
 	

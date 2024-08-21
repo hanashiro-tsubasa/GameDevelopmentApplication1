@@ -26,16 +26,18 @@ private:
 
 	std::vector<int>move_animation;     //移動のアニメーション
 	std::vector<int>eyes_animation;     //死亡のアニメーション
+	int image2;
 	Vector2D location;                  //位置
 	Vector2D velocity;                  //移動量
 	eEnemyState enemy_state;            //エネミー状態
 	eEnemyDirectionState direction_state;    //進行方向情報
 	float animation_time;               //アニメーション時間
 	int animation_count;                //アニメーション添え字
+	int m_animation_count;
 	bool is_destroy;                    //死んだ状態になったか？
 	
 	//移動アニメーションの順番
-	const int animation_num[2] = { 1,2 };
+	const int animation_num[2] = { 0,1 };
 public:
 
 	

@@ -205,7 +205,7 @@ const ePanelID StageData::GetPanelData(const Vector2D& location)
 	if((i < 0) || (j < 0) || (instance->data.size() <= i) || (instance->data[0].size() <= j))
 	{
 		return ePanelID::NONE;
-	}
+	} 
 
 	return instance->data[i][j];
 }
