@@ -14,7 +14,7 @@ public:
 template<class T>
 class FEvent : public BaseEvent
 {
-privatej:
+private:
 	T* object;
 	void(T::* function)(float);
 
@@ -98,7 +98,7 @@ public:
 		keycode_event.push_back(sender);
 	}
 	template <class T>
-	void ActionKeBind(int keycode, float value, T* object, void(T::*
+	void ActionKeyBind(int keycode, float value, T* object, void(T::*
 		func)(float))
 	{
 		EventSender sender = {};

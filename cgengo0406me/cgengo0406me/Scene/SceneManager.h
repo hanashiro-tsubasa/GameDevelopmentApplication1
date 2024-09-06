@@ -28,7 +28,7 @@ private:
 	void ChangeScene(eSceneType type);
 
 	//ƒV[ƒ“¶¬ˆ—
-	SceneBase* CreateScene(eSceneType type);
+	//SceneBase* CreateScene(eSceneType type);
 
 };
 

@@ -4,7 +4,7 @@
 class InGameScene : public SceneBase
 {
 private:
-	class Player* Player;
+	class Player* player;
 
 public:
 	InGameScene();

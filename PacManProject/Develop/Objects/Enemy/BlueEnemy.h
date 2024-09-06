@@ -44,10 +44,5 @@ private:
 	/// <returns></returns>
 	void Movement(float delta_second);
 
-	/// <summary>
-	/// アニメーション制御
-	/// </summary>
-	/// <param name="delta_second">1フレームあたりの時間</param>
 	void AnimationControl(float delta_second);
-
 };

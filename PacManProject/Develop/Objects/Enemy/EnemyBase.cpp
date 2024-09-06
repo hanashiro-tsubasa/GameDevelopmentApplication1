@@ -3,15 +3,18 @@
 #include "../../Utility/ResourceManager.h"
 #include "DxLib.h"
 
+
 #define D_ENEMY_SPEED (50.0f)
 
 EnemyBase::EnemyBase() :
+	image2(),
 	move_animation(),
 	eyes_animation(),
 	velocity(0.0f),
-	enemy_state(eEnemyState::TUISEKI),
+	enemy_state(eEnemyState::eIDLE),
 	direction_state(eEnemyDirectionState::UP),
 	animation_time(0.0f),
+	move_animation_time(0.0f),
 	animation_count(0),
 	m_animation_count(0),
 	is_destroy(false)
@@ -38,53 +41,43 @@ void EnemyBase::Initialize()
 
 	//可動性の設定
 	mobility = eMobilityType::Movable;
+	image2 = move_animation[enemy_type * 2];
 }
 
 void EnemyBase::Update(float delta_second)
 {
 	//エネミー状態によって、動作を変える
-	switch (enemy_state)
-	{
-		case eEnemyState::TUISEKI:
+	
 			Movement(delta_second);
 			AnimationControl(delta_second);
-		case eEnemyState::EYE:
-			animation_time += delta_second;
-			if (animation_time >= 0.07f)
-			{
-				animation_time = 0.0f;
-				animation_count++;
-				m_animation_count++;
-				
-				if (animation_count >= eyes_animation.size())
-				{
-					enemy_state = eEnemyState::TUISEKI;
-					animation_count = 0;
-					is_destroy = true;
-				}
-				if (m_animation_count >= move_animation.size())
-				{
-					m_animation_count = 0;
-				}
-
-			}
-			image = eyes_animation[animation_count];
-			image2 = move_animation[m_animation_count];
 			
+	
+	switch (direction_state)//左右上下で目の画像を変える　
+	{
+		case eEnemyDirectionState::UP:
+			animation_count = 0;
 			break;
-		default:
+		case eEnemyDirectionState::RIGHT:
+			animation_count = 1;
+			break;
+		case eEnemyDirectionState::DOWN:
+			animation_count = 2;
+			break;
+		case eEnemyDirectionState::LEFT:
+			animation_count = 3;
 			break;
 	}
-
+		image = eyes_animation[animation_count];
 }
+
 
 void EnemyBase::Draw(const Vector2D& screen_offset)const
 {
-	//Draw(screen_offset);
+	//Draw(screen_offset);	
 	
-	Vector2D graph_location = this->location + screen_offset;
-	DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, image2, TRUE);
-	__super::Draw(screen_offset);
+	Vector2D graph_location =location + screen_offset;
+	DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, image2, TRUE); //体
+	__super::Draw(screen_offset);												//目
 }
 
 void EnemyBase::Finalize()
@@ -131,6 +124,12 @@ eEnemyState EnemyBase::GetEnemyState() const
 	return enemy_state;
 }
 
+EnemyBase::eEnemyDirectionState EnemyBase::GetEnemyDirectionState() const
+{
+	return direction_state;
+}
+
+
 bool EnemyBase::GetDestroy() const
 {
 	return is_destroy;
@@ -143,6 +142,36 @@ bool EnemyBase::GetDestroy() const
 
 void EnemyBase::Movement(float delta_second)
 {
+//エネミー状態によって動きを変える
+	switch (enemy_state)
+	{
+	case eEnemyState::TUISEKI:
+		break;
+	case eEnemyState::eIDLE:
+		move_animation_time += delta_second;
+		if (move_animation_time >= (1.0f / 1.0f))
+		{
+			move_animation_time = 0.0f;
+			if (direction_state == UP)
+			{
+				direction_state = DOWN;
+			}
+			else if (direction_state == DOWN)
+			{
+				direction_state = UP;
+			}
+		}
+		break;
+	case eEnemyState::NAWABARI:
+		break;
+	case eEnemyState::EYE:
+		break;
+	case eEnemyState::IJIKE:
+		break;
+
+	}
+
+
 // 進行方向の移動量を追加
 	switch (direction_state)
 	{
@@ -172,23 +201,18 @@ void EnemyBase::Movement(float delta_second)
 void EnemyBase::AnimationControl(float delta_second)
 {
 	// 移動中のアニメーション
-	/*animation_time += delta_second;
-	if (animation_time >= (1.0f / 16.0f))
+	animation_time += delta_second;
+	if (animation_time >= (1.0f / 8.0f))
 	{
 		animation_time = 0.0f;
-		animation_count++;
-		if (animation_count >= 2)
+		m_animation_count++;
+		if (m_animation_count >= 2)
 		{
-			animation_count = 0;
+			m_animation_count = 0;
 		}
 		// 画像の設定
-		int dir_num = (int)direction_state;
-		if (0 <= dir_num && dir_num < 2)
-		{
-			image = move_animation[(dir_num * 1) + animation_num[animation_count]];
-		}
-          
-	}*/
+		image2 = move_animation[enemy_type * 2 + m_animation_count];
+	}
 }
 
 	

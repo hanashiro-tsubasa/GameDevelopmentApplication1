@@ -60,7 +60,7 @@ eSceneType InGameScene::Update(const float& delta_second)
 		__super::Update(delta_second);
 
 		// 全ての餌を食べたら、再スタート
-		if (player->GetFoodCount() >= 244)
+		if (player->GetFoodCount() >= 246)
 		{
 			return eSceneType::re_start;
 		}
@@ -190,10 +190,35 @@ void InGameScene::LoadStageMapCSV()
 				break;
 			// エネミー
 			case 'E':
+				if(spos_x==14)
+				{ 
 				generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
 				CreateObject<RedEnemy>(generate_location);
-				break;
-			case 'I':
+				//break;
+
+				}
+				if (spos_x == 17)
+				{
+					generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
+					CreateObject<YellowEnemy>(generate_location);
+					//break;
+
+				}
+				if (spos_x == 13)
+				{
+					generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
+					CreateObject<BlueEnemy>(generate_location);
+					//break;
+
+				}
+				if (spos_x == 15)
+				{
+					generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
+					CreateObject<PinkEnemy>(generate_location);
+					//break;
+
+				}
+			/*case 'I':
 				generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
 				CreateObject<PinkEnemy>(generate_location);
 				break;
@@ -204,7 +229,7 @@ void InGameScene::LoadStageMapCSV()
 			case 'Y':
 				generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
 				CreateObject<YellowEnemy>(generate_location);
-				break;
+				break;*/
 			// 上記以外
 			default:
 				break;
@@ -252,7 +277,7 @@ void InGameScene::LoadStageMapFoodsCSV()
 			CreateObject<Food>(generate_location);
 			x++;
 		}
-		// 抽出した文字がドットなら、パワー餌を生成
+		// 抽出した文字がPなら、パワー餌を生成
 		else if (c == 'P')
 		{
 			Vector2D generate_location = (Vector2D((float)x, (float)y) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);

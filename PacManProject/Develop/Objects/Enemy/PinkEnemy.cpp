@@ -12,6 +12,7 @@ PinkEnemy::~PinkEnemy()
 }
 void PinkEnemy::Initialize()
 {
+	enemy_type = eEnemyType::PINK;
 	EnemyBase::Initialize();
 }
 

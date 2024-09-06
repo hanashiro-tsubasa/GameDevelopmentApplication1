@@ -12,6 +12,8 @@ YellowEnemy::~YellowEnemy()
 }
 void YellowEnemy::Initialize()
 {
+	direction_state = eEnemyDirectionState::DOWN;
+	enemy_type = eEnemyType::YELLOW;
 	EnemyBase::Initialize();
 }
 

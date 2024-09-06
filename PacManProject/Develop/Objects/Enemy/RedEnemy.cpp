@@ -12,12 +12,21 @@ RedEnemy::~RedEnemy()
 }
 void RedEnemy::Initialize()
 {
+	enemy_type = eEnemyType::RED;
+	enemy_state = eEnemyState::TUISEKI;
 	EnemyBase::Initialize();
 }
 
 void RedEnemy::Update(float delta_second)
 {
 	EnemyBase::Update(delta_second);
+	/*if (EnemyBase::m_animation_count >= 2)
+	{
+		
+	
+	}
+	m_animation_count = m_animation_count % 2;*/
+
 }
 
 void RedEnemy::Draw(const Vector2D& screen_offset)const
@@ -45,7 +54,6 @@ bool RedEnemy::GetDestroy()const
 
 	return EnemyBase::GetDestroy();
 }
-
 void RedEnemy::Movement(float delta_second)
 {
 	//EnemyBase::Movement(delta_second);
@@ -55,3 +63,4 @@ void RedEnemy::AnimationControl(float delta_second)
 {
 	//EnemyBase::AnimationControl(delta_second);
 }
+

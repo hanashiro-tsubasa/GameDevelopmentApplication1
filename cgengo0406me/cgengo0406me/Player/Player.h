@@ -6,7 +6,7 @@ class Player
 {
 private:
 	Vector2D location;  //位置情報
-	Vector2D velicity;  //位置情報
+	Vector2D velocity;  //位置情報
 	Vector2D box_size;  //位置情報
 
 public:

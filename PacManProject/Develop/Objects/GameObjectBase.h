@@ -22,7 +22,7 @@ protected:
 	Vector2D			location;		// 位置座標
 	CapsuleCollision	collision;		// 当たり判定情報
 	int					image;			// 画像情報
-	int					z_layer;		// レイヤー情報
+	int					z_layer;		// レイヤー情報 数値が高い方が前面
 	eMobilityType		mobility;		// 可動性
 
 public:

@@ -1,41 +1,125 @@
 #include "SceneManager.h"
+
 #include "DxLib.h"
+#include "../Utility/InputManager.h"
+#include "../Utility/InputEventManager.h"
+#include "../Utility/SceneFactory.h"
 
-InputManager* InputManager::Get()
+SceneManager::SceneManager() : current_scene(nullptr), is_finalize(false)
 {
-	static InputManager instance;
-	return &instance;
 }
 
-void InputManager::Update()
+SceneManager::~SceneManager()
 {
-	//前回入力値の更新
-	memcpy(old_key, now_key, (sizeof(char) * D_KEYCODE_MAX));
-
-	//現在入力値の更新
-	GetHitKeyStateAll(now_key);
+	Finalize();
 }
 
-eInputState InputManager::GetKeyState(int keycode)const
+void SceneManager::Initialize()
 {
-	if (CheckKeycodeRange(keycode))
+	//ウィンドウモードで起動
+	ChangeWindowMode(TRUE);
+
+	//画面サイズの設定
+	SetGraphMode(640, 480, 32);
+
+	//DXライブラリの初期化
+	if (DxLib_Init() == -1)
 	{
-		if (old_key[keycode] == TRUE)
-		{
-			if (now_key[keycode] == TRUE)
-			{
-				return eInputState::Held;
-			}
-			else
-			{
-				return eInputState::Released;
-			}
-		}
-
+		throw("DXライブラリが初期化できませんでした\n");
 	}
-	return eInputState::None;
+
+	//裏画面から描画を始める
+	SetDrawScreen(DX_SCREEN_BACK);
+
+	//タイトル画面からシーンを開始する
+	ChangeScene(eSceneType::eInGame);
 }
-bool InputManager::CheckKeycodeRange(int keycode) const
+
+void SceneManager::Update()
 {
-	return (0 <= keycode && keycode < D_KEYCODE_MAX);
+	//開始時間を取得
+	LONGLONG start_time = GetNowHiPerformanceCount();
+
+	//入力機能のインスタンスを取得する
+	InputManager* input = InputManager::Get();
+
+	//メインループ
+	while (ProcessMessage() != -1 && input->GetKeyState(KEY_INPUT_ESCAPE) ==
+		eInputState::None)
+	{
+		//1フレームあたりの時間を計算する
+		float delta_second = static_cast<float>(GetNowHiPerformanceCount() -
+			start_time) * 0.000001f;
+
+		//魁夷氏時間の更新
+		start_time = GetNowHiPerformanceCount();
+
+		input->Update();
+
+		//シーンの更新処理
+		eSceneType next_scene_type = current_scene->Update(delta_second);
+
+		//描画処理
+		Draw();
+
+		//シーン切り替え
+		if (next_scene_type != current_scene->GetNowSceneType())
+		{
+			ChangeScene(next_scene_type);
+		}
+	}
+}
+
+void SceneManager::Finalize()
+{
+	if (is_finalize)
+	{
+		return;
+	}
+
+	//入力イベントの削除
+	InputEventManager::DeleteInstance();
+
+	//DXライブラリの終了処理
+	DxLib_End();
+
+	//終了処理成功
+	is_finalize = true;
+
+}
+
+void SceneManager::Draw() const
+{
+	//画面の初期化
+	ClearDrawScreen();
+
+	//シーンの描画処理
+	current_scene->Draw();
+
+	//裏画面の内容を表画面に反映する
+	ScreenFlip();
+}
+
+void SceneManager::ChangeScene(eSceneType type)
+{
+	//引数で渡された情報から新しいシーンを作成する
+	SceneBase* new_scene = SceneFactory::CreateScene(type);
+
+	//エラーチェック
+	if (new_scene == nullptr)
+	{
+		throw("シーンが生成できませんでした。\n");
+	}
+	
+	//現在シーンの終了処理
+	if (current_scene != nullptr)
+	{
+		current_scene->Finalize();
+		delete current_scene;
+	}
+
+	//新しいシーンの初期化
+	new_scene->Initialize();
+	current_scene = new_scene;
+
 }

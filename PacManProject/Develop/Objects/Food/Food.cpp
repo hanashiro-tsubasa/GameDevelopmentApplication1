@@ -44,5 +44,6 @@ void Food::OnHitCollision(GameObjectBase* hit_object)
 	if (hit_object->GetCollision().object_type == eObjectType::player)
 	{
 		DestroyObject(this);
+		
 	}
 }

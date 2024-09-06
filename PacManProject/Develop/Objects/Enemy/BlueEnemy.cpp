@@ -1,4 +1,6 @@
 #include "BlueEnemy.h"
+#include "../../Utility/ResourceManager.h"
+#include "DxLib.h"
 
 BlueEnemy::BlueEnemy()
 {
@@ -12,17 +14,22 @@ BlueEnemy::~BlueEnemy()
 }
 void BlueEnemy::Initialize()
 {
-	EnemyBase::Initialize();
+	direction_state = eEnemyDirectionState::DOWN;
+	enemy_type = eEnemyType::BLUE;
+	z_layer = 10;
+	__super::Initialize();
 }
 
 void BlueEnemy::Update(float delta_second)
 {
-	EnemyBase::Update(delta_second);
+
+	__super::Update(delta_second);
 }
 
 void BlueEnemy::Draw(const Vector2D& screen_offset)const
 {
-	EnemyBase::Draw(screen_offset);
+	
+	__super::Draw(screen_offset);
 }
 
 void BlueEnemy::Finalize()
@@ -51,7 +58,23 @@ void BlueEnemy::Movement(float delta_second)
 	//EnemyBase::Movement(delta_second);
 }
 
+/// <summary>
+/// アニメーション制御
+/// </summary>
+/// <param name="delta_second">1フレームあたりの時間</param>
 void BlueEnemy::AnimationControl(float delta_second)
 {
-	//EnemyBase::AnimationControl(delta_second);
+	// 移動中のアニメーション
+	animation_time += delta_second;
+	if (animation_time >= (1.0f / 16.0f))
+	{
+		animation_time = 0.0f;
+		animation_count++;
+		if (animation_count >= 2)
+		{
+			animation_count = 0;
+		}
+		// 画像の設定
+		image2 = move_animation[enemy_type * 2 + animation_count];
+	}
 }
