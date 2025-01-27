@@ -98,7 +98,7 @@ void SceneManager::Run()
 			// シーン切り替え処理
 			ChangeScene(next_scene_type);
 		}
-	}
+ 	}
 }
 
 /// <summary>

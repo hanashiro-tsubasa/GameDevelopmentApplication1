@@ -15,6 +15,7 @@ Food::~Food()
 void Food::Initialize()
 {
 	// 画像の読み込み
+	//リソースマネージャーのポインタ型のrmという変数を作って、なかにリソースマネージャーの
 	ResourceManager* rm = ResourceManager::GetInstance();
 	image = rm->GetImages("Resource/Images/dot.png")[0];
 
